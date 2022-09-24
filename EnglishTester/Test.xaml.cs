@@ -56,6 +56,7 @@ namespace EnglishTester
                 is_true.Text = "오답입니다!";
                 if (MainWindow.is_autoSkip)
                 {
+                    is_true.Text = $"오답입니다! | 정답 : {a}";
                     skipped++;
                     newS();
                 }
