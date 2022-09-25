@@ -6,12 +6,14 @@ namespace EnglishTester.Scripts
 public static class Loader
 {
     public static readonly List<Tuple<string, string>> Sentences = new ();
+    public static readonly List<Tuple<string, string>> Verbs = new ();
     public static readonly List<int> Classify = new ();
 
     private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + "\\Resources";
     public static void Setup()
     {
         SentencesLoader();
+        VerbsLoader();
         ClassifyLoader();
     }
     
@@ -28,8 +30,20 @@ public static class Loader
         }
         reader.Close();
     }
-    
-    public static void ClassifyLoader()
+    private static void VerbsLoader()
+    {
+        var verbsPath = $"{Path}\\Verbs.txt";
+        var reader = new System.IO.StreamReader(verbsPath);
+        while (!reader.EndOfStream)
+        {
+            var line = reader.ReadLine();
+            if (line == null || line.Contains('#')) continue;
+            var split = line.Split('|');
+            Verbs.Add(new Tuple<string, string>(split[0], split[1]));
+        }
+        reader.Close();
+    }
+    private static void ClassifyLoader()
     {
         var verbsPath = $"{Path}\\Classify.txt";
         var reader = new System.IO.StreamReader(verbsPath);

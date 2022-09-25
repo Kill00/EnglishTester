@@ -9,7 +9,7 @@ namespace EnglishTester
         {
             InitializeComponent();
 
-            result.Text = $"정답 개수 : {Test.corrected} | 스킵 개수 : {Test.skipped}";
+            result.Text = $"정답 개수 : {Test.Corrected} | 스킵 개수 : {Test.Skipped}";
         }
     }
 }

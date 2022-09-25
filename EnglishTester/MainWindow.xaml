@@ -6,16 +6,13 @@
         mc:Ignorable="d"
         Title="EnglishTest" Height="720" Width="1280">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="837*"/>
-            <ColumnDefinition Width="443*"/>
-        </Grid.ColumnDefinitions>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="영어 수행평가 모의 평가 프로그램" TextAlignment="Center" VerticalAlignment="Top" Width="1280" Height="90" FontSize="50" FontFamily="NanumGothic" Grid.ColumnSpan="2"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1280" Height="50" TextAlignment="Center" FontSize="36" Text="테스트할 문항의 개수를 정하세요." Grid.ColumnSpan="2"/>
         <TextBox x:Name="TestCount" HorizontalAlignment="Left" Margin="550,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" TextAlignment="Center" PreviewTextInput="TextBox_PreviewTextInput" Height="35" FontSize="24" Text=""/>
         <TextBlock x:Name="ErrorIsTooHigh" HorizontalAlignment="Left" Margin="0,255,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextAlignment="Center" Width="1280" Height="25" Foreground="Red" Grid.ColumnSpan="2"/>
         <Button Content="시작" HorizontalAlignment="Left" Margin="520,592,0,0" VerticalAlignment="Top" Width="240" Height="60" FontFamily="NanumGothic" FontSize="24" IsCancel="True" Click="Start_Click"/>
         <CheckBox x:Name="AutoSkip" Content="오답일때 자동 스킵" HorizontalAlignment="Left" Margin="550,567,0,0" VerticalAlignment="Top" FontFamily="NanumGothic" FontSize="20" Width="180" Height="20"/>
+        <CheckBox x:Name="ToMean" Content="단어를 뜻으로 표시" HorizontalAlignment="Left" Margin="550,540,0,0" VerticalAlignment="Top" FontFamily="NanumGothic" FontSize="20" Width="180" Height="20"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,320,0,0" TextWrapping="Wrap" Text="아래의 선택지 중 한 개도 선택하지 않을경우 모든 지문으로 출제됩니다." VerticalAlignment="Top" TextAlignment="Center" FontSize="15" Foreground="Red" Width="1280" Height="25" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="L2" Content="교과서 2단원 지문" HorizontalAlignment="Left" Margin="530,350,0,0" VerticalAlignment="Top" FontFamily="NanumGothic" FontSize="20" Width="180" Height="20"/>
         <CheckBox x:Name="L3" Content="교과서 3단원 지문" HorizontalAlignment="Left" Margin="530,380,0,0" VerticalAlignment="Top" FontFamily="NanumGothic" FontSize="20" Width="180" Height="20"/>

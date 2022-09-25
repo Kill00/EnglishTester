@@ -10,6 +10,7 @@ public partial class MainWindow
     {
         public static int TestC;
         public static bool IsAutoSkip;
+        public static bool IsToMean;
         public static List<Tuple<string, string>> SelectedSentences = new ();
 
         public MainWindow()
@@ -68,6 +69,7 @@ public partial class MainWindow
             {
                 TestC = Convert.ToInt32(TestCount.Text);
                 IsAutoSkip = AutoSkip.IsChecked == true;
+                IsToMean = ToMean.IsChecked == true;
                 TestPage.Navigate(new Uri("Test.xaml", UriKind.Relative));
             }
            

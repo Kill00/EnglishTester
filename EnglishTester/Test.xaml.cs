@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
+using EnglishTester.Scripts;
 
 namespace EnglishTester
 {
     public partial class Test : Page
     {
         private static int _now = 1;
-        public static int skipped = 0;
-        public static int corrected = 0;
+        public static int Skipped;
+        public static int Corrected;
         private static string _a = "";
-        private static readonly List<Tuple<string, string>> s = new();
         public Test()
         {
             InitializeComponent();
@@ -26,17 +25,27 @@ namespace EnglishTester
 
             var currentSentence = MainWindow.SelectedSentences[randomIndex];
             var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
+            _a = answer[0].Value.Replace("[", "").Replace("]", "");
 
             var answerBlind = "";
-            Debug.WriteLine(answer[0].Value);
-            for (var i = 0; i < answer[0].Value.Length - 2; i++)
+            if (MainWindow.IsToMean)
             {
-                answerBlind += "_";
+                foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
+                {
+                    answerBlind = t.Item2;
+                    break;
+                }
+            }
+            else
+            {
+                for (var i = 0; i < answer[0].Value.Length - 2; i++)
+                {
+                    answerBlind += "_";
+                }
             }
 
             eng.Text = currentSentence.Item1.Replace(answer[0].Value, answerBlind);
             kor.Text = currentSentence.Item2;
-            _a = answer[0].Value.Replace("[", "").Replace("]", "");
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -45,7 +54,7 @@ namespace EnglishTester
             {
                 is_true.Foreground = Brushes.Green;
                 is_true.Text = "정답입니다!";
-                corrected++;
+                Corrected++;
                 NewS();
             }
             else
@@ -55,7 +64,7 @@ namespace EnglishTester
                 if (MainWindow.IsAutoSkip)
                 {
                     is_true.Text = $"오답입니다! | 정답 : {_a}";
-                    skipped++;
+                    Skipped++;
                     NewS();
                 }
             }
@@ -63,7 +72,7 @@ namespace EnglishTester
 
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
-            skipped++;
+            Skipped++;
             NewS();
         }
 
@@ -72,7 +81,7 @@ namespace EnglishTester
             if (_now != MainWindow.TestC)
             {
                 _now++;
-                Problem.Text = $"{_now}/{MainWindow.TestC} ··· Skipped : {skipped}";
+                Problem.Text = $"{_now}/{MainWindow.TestC} ··· Skipped : {Skipped}";
 
                 input.Text = "";
                 var random = new Random();
