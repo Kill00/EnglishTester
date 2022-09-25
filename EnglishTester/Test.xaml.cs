@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
@@ -12,7 +13,9 @@ namespace EnglishTester
         private static int _now = 1;
         public static int Skipped;
         public static int Corrected;
+        private static readonly List<Tuple<string, string, string>> Wrong = new();
         private static string _a = "";
+        private static string _n = "";
         public Test()
         {
             InitializeComponent();
@@ -27,6 +30,7 @@ namespace EnglishTester
             MainWindow.SelectedSentences.RemoveAt(randomIndex);
             var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
             _a = answer[0].Value.Replace("[", "").Replace("]", "");
+            _n = currentSentence.Item1;
 
             var answerBlind = "";
             if (MainWindow.IsToMean)
@@ -64,6 +68,7 @@ namespace EnglishTester
                 if (MainWindow.IsAutoSkip)
                 {
                     is_true.Text = $"오답입니다! | 정답 : {_a}";
+                    Wrong.Add(new Tuple<string, string, string>(_n, _a, input.Text));
                     Skipped++;
                     NewS();
                 }
@@ -72,6 +77,7 @@ namespace EnglishTester
 
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
+            Wrong.Add(new Tuple<string, string, string>(_n, _a, "Null(Skipped)"));
             Skipped++;
             NewS();
         }
@@ -89,8 +95,9 @@ namespace EnglishTester
 
                 var currentSentence = MainWindow.SelectedSentences[randomIndex];
                 MainWindow.SelectedSentences.RemoveAt(randomIndex);
-                var answer = new Regex(@"\[(.+)\]").Matches(currentSentence.Item1);
+                var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
                 _a = answer[0].Value.Replace("[", "").Replace("]", "");
+                _n = currentSentence.Item1;
 
                 var answerBlind = "";
                 if (MainWindow.IsToMean)
@@ -113,6 +120,8 @@ namespace EnglishTester
             }
             else
             {
+                var unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                System.IO.File.WriteAllLines($"{Environment.CurrentDirectory}\\wrong-{unixTimestamp}.txt", Wrong.Select(a => $"문제 : \"{a.Item1}\" | 정답 : \"{a.Item2}\" | 입력한 값 : \"{a.Item3}\""));
                 move.Navigate(new Uri("Finished.xaml", UriKind.Relative));
             }
         }
