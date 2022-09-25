@@ -42,7 +42,8 @@ namespace EnglishTester
             }
             else
             {
-                for (var i = 0; i < answer[0].Value.Length - 2; i++)
+                _m = "";
+                for (var i = 0; i < _n.Length; i++)
                 {
                     _m += "_";
                 }
@@ -108,7 +109,8 @@ namespace EnglishTester
                 }
                 else
                 {
-                    for (var i = 0; i < answer[0].Value.Length - 2; i++)
+                    _m = "";
+                    for (var i = 0; i < _n.Length - 2; i++)
                     {
                         _m += "_";
                     }
