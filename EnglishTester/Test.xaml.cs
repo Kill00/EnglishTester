@@ -17,6 +17,7 @@ namespace EnglishTester
         private static string _a = "";
         private static string _n = "";
         private static string _m = "";
+        private static string _mean = "";
         public Test()
         {
             InitializeComponent();
@@ -32,18 +33,20 @@ namespace EnglishTester
             var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
             _a = answer[0].Value.Replace("[", "").Replace("]", "");
             _n = currentSentence.Item1;
+
+            foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
+            {
+                _mean = t.Item2;
+            }
             
             if (MainWindow.IsToMean)
             {
-                foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
-                {
-                    _m = t.Item2;
-                }
+                _m = _mean;
             }
             else
             {
                 _m = "";
-                for (var i = 0; i < _n.Length; i++)
+                for (var i = 0; i < _a.Length; i++)
                 {
                     _m += "_";
                 }
@@ -69,7 +72,7 @@ namespace EnglishTester
                 if (MainWindow.IsAutoSkip)
                 {
                     is_true.Text = $"오답입니다! | 정답 : {_a}";
-                    Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _m, input.Text));
+                    Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _mean, input.Text));
                     Skipped++;
                     NewS();
                 }
@@ -78,7 +81,7 @@ namespace EnglishTester
 
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
-            Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _m, "Null(Skipped)"));
+            Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _mean, "Null(Skipped)"));
             Skipped++;
             NewS();
         }
@@ -100,17 +103,19 @@ namespace EnglishTester
                 _a = answer[0].Value.Replace("[", "").Replace("]", "");
                 _n = currentSentence.Item1;
                 
+                foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
+                {
+                    _mean = t.Item2;
+                }
+                
                 if (MainWindow.IsToMean)
                 {
-                    foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
-                    {
-                        _m = t.Item2;
-                    }
+                    _m = _mean;
                 }
                 else
                 {
                     _m = "";
-                    for (var i = 0; i < _n.Length - 2; i++)
+                    for (var i = 0; i < _a.Length; i++)
                     {
                         _m += "_";
                     }
