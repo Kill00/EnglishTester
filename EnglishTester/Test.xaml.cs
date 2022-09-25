@@ -50,7 +50,7 @@ namespace EnglishTester
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (input.Text == _a)
+            if (string.Equals(input.Text, _a, StringComparison.CurrentCultureIgnoreCase))
             {
                 is_true.Foreground = Brushes.Green;
                 is_true.Text = "정답입니다!";
