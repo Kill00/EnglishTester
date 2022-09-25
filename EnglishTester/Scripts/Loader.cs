@@ -5,7 +5,7 @@ namespace EnglishTester.Scripts
 {
 public static class Loader
 {
-    public static readonly List<Tuple<string, string>> Sentences = new List<Tuple<string, string>>();
+    public static readonly List<Tuple<string, string>> Sentences = new ();
 
     private static readonly string Path = AppDomain.CurrentDomain.BaseDirectory + "\\Resources";
     public static void Setup()
@@ -20,7 +20,7 @@ public static class Loader
         while (!reader.EndOfStream)
         {
             var line = reader.ReadLine();
-            if (line == null || line.Contains("#")) continue;
+            if (line == null || line.Contains('#')) continue;
             var split = line.Split('|');
             Sentences.Add(new Tuple<string, string>(split[0], split[1]));
         }
