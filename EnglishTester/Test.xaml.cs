@@ -91,9 +91,20 @@ namespace EnglishTester
                 var answer = new Regex(@"\[(.+)\]").Matches(currentSentence.Item1);
 
                 var answerBlind = "";
-                for (var i = 0; i < answer[0].Value.Length - 2; i++)
+                if (MainWindow.IsToMean)
                 {
-                    answerBlind += "_";
+                    foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
+                    {
+                        answerBlind = t.Item2;
+                        break;
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < answer[0].Value.Length - 2; i++)
+                    {
+                        answerBlind += "_";
+                    }
                 }
 
                 eng.Text = currentSentence.Item1.Replace(answer[0].Value, answerBlind);
