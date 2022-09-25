@@ -33,14 +33,14 @@ public partial class MainWindow
             SelectedSentences = new List<Tuple<string, string>>();
             if (L2.IsChecked == true)
             {
-                for (var i = 0; i <= 63; i++)
+                for (var i = Loader.Classify[0]; i <= Loader.Classify[1]; i++)
                 {
                     SelectedSentences.Add(new Tuple<string,string>(Loader.Sentences[i].Item1, Loader.Sentences[i].Item2));
                 }
             }
             if (L3.IsChecked == true)
             {
-                for (var i = 64; i <= 137; i++)
+                for (var i = Loader.Classify[2]; i <= Loader.Classify[3]; i++)
                 {
                     SelectedSentences.Add(new Tuple<string,string>(Loader.Sentences[i].Item1, Loader.Sentences[i].Item2));
                 }
@@ -48,7 +48,7 @@ public partial class MainWindow
             }
             if (MockExam.IsChecked == true)
             {
-                for (var i = 138; i <= Loader.Sentences.Count - 1; i++)
+                for (var i = Loader.Classify[4]; i <= Loader.Sentences.Count - 1; i++)
                 {
                     SelectedSentences.Add(new Tuple<string,string>(Loader.Sentences[i].Item1, Loader.Sentences[i].Item2));
                 }
