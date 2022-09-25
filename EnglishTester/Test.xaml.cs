@@ -33,7 +33,6 @@ namespace EnglishTester
                 foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
                 {
                     answerBlind = t.Item2;
-                    break;
                 }
             }
             else
@@ -97,7 +96,6 @@ namespace EnglishTester
                     foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
                     {
                         answerBlind = t.Item2;
-                        break;
                     }
                 }
                 else
