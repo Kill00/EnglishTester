@@ -15,9 +15,9 @@
             <TextBox x:Name="input" Canvas.Left="520" TextWrapping="Wrap" Canvas.Top="532" Width="240" TextAlignment="Center" Height="60" FontSize="36" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Button Content="정답 확인" Canvas.Left="580" Canvas.Top="597" Width="120" Height="60" FontFamily="NanumGothic" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click"/>
             <TextBlock x:Name="Problem" Canvas.Left="10" TextWrapping="Wrap" Text="1 / 999 ··· Skiped : 999" Canvas.Top="639" FontFamily="NanumGothic" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBlock x:Name="is_true" Canvas.Left="0" TextWrapping="Wrap" Canvas.Top="497" Width="1280" Height="30" FontSize="20" FontFamily="NanumGothic" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Button Content="스킵" Canvas.Left="705" Canvas.Top="597" Width="50" Height="60" FontFamily="NanumGothic" FontSize="20" Click="Button_Click_1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
         <Frame x:Name="move"/>
+        <TextBlock x:Name="is_true" TextWrapping="Wrap" Margin="0,350,0,0" Width="1280" Height="30" FontSize="20" FontFamily="NanumGothic" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
     </Grid>
 </Page>
