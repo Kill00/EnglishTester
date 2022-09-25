@@ -89,6 +89,7 @@ namespace EnglishTester
 
                 var currentSentence = MainWindow.SelectedSentences[randomIndex];
                 var answer = new Regex(@"\[(.+)\]").Matches(currentSentence.Item1);
+                _a = answer[0].Value.Replace("[", "").Replace("]", "");
 
                 var answerBlind = "";
                 if (MainWindow.IsToMean)
@@ -109,7 +110,6 @@ namespace EnglishTester
 
                 eng.Text = currentSentence.Item1.Replace(answer[0].Value, answerBlind);
                 kor.Text = currentSentence.Item2;
-                _a = answer[0].Value.Replace("[", "").Replace("]", "");
             }
             else
             {
