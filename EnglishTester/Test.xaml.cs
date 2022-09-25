@@ -13,9 +13,10 @@ namespace EnglishTester
         private static int _now = 1;
         public static int Skipped;
         public static int Corrected;
-        private static readonly List<Tuple<string, string, string>> Wrong = new();
+        private static readonly List<Tuple<string, string, string, string>> Wrong = new();
         private static string _a = "";
         private static string _n = "";
+        private static string _m = "";
         public Test()
         {
             InitializeComponent();
@@ -31,24 +32,23 @@ namespace EnglishTester
             var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
             _a = answer[0].Value.Replace("[", "").Replace("]", "");
             _n = currentSentence.Item1;
-
-            var answerBlind = "";
+            
             if (MainWindow.IsToMean)
             {
                 foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
                 {
-                    answerBlind = t.Item2;
+                    _m = t.Item2;
                 }
             }
             else
             {
                 for (var i = 0; i < answer[0].Value.Length - 2; i++)
                 {
-                    answerBlind += "_";
+                    _m += "_";
                 }
             }
 
-            eng.Text = currentSentence.Item1.Replace(answer[0].Value, answerBlind);
+            eng.Text = currentSentence.Item1.Replace(answer[0].Value, _m);
             kor.Text = currentSentence.Item2;
         }
 
@@ -68,7 +68,7 @@ namespace EnglishTester
                 if (MainWindow.IsAutoSkip)
                 {
                     is_true.Text = $"오답입니다! | 정답 : {_a}";
-                    Wrong.Add(new Tuple<string, string, string>(_n, _a, input.Text));
+                    Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _m, input.Text));
                     Skipped++;
                     NewS();
                 }
@@ -77,7 +77,7 @@ namespace EnglishTester
 
         private void Button_Click_1(object sender, System.Windows.RoutedEventArgs e)
         {
-            Wrong.Add(new Tuple<string, string, string>(_n, _a, "Null(Skipped)"));
+            Wrong.Add(new Tuple<string, string, string, string>(_n, _a, _m, "Null(Skipped)"));
             Skipped++;
             NewS();
         }
@@ -98,30 +98,29 @@ namespace EnglishTester
                 var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
                 _a = answer[0].Value.Replace("[", "").Replace("]", "");
                 _n = currentSentence.Item1;
-
-                var answerBlind = "";
+                
                 if (MainWindow.IsToMean)
                 {
                     foreach (var t in Loader.Verbs.Where(t => _a.Contains(t.Item1)))
                     {
-                        answerBlind = t.Item2;
+                        _m = t.Item2;
                     }
                 }
                 else
                 {
                     for (var i = 0; i < answer[0].Value.Length - 2; i++)
                     {
-                        answerBlind += "_";
+                        _m += "_";
                     }
                 }
 
-                eng.Text = currentSentence.Item1.Replace(answer[0].Value, answerBlind);
+                eng.Text = currentSentence.Item1.Replace(answer[0].Value, _m);
                 kor.Text = currentSentence.Item2;
             }
             else
             {
                 var unixTimestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-                System.IO.File.WriteAllLines($"{Environment.CurrentDirectory}\\wrong-{unixTimestamp}.txt", Wrong.Select(a => $"문제 : \"{a.Item1}\" | 정답 : \"{a.Item2}\" | 입력한 값 : \"{a.Item3}\""));
+                System.IO.File.WriteAllLines($"{Environment.CurrentDirectory}\\wrong-{unixTimestamp}.txt", Wrong.Select(a => $"문제 : \"{a.Item1}\" | 정답 : \"{a.Item2}\" | 뜻 : \"{a.Item3}\" | 입력한 값 : \"{a.Item4}\""));
                 move.Navigate(new Uri("Finished.xaml", UriKind.Relative));
             }
         }
