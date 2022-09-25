@@ -60,7 +60,7 @@ public partial class MainWindow
             // Init
             
             Debug.WriteLine(SelectedSentences.Count);
-            if (string.IsNullOrEmpty(TestCount.Text) || Convert.ToInt32(TestCount.Text) >= SelectedSentences.Count || Convert.ToInt32(TestCount.Text) <= 0)
+            if (string.IsNullOrEmpty(TestCount.Text) || Convert.ToInt32(TestCount.Text) > SelectedSentences.Count || Convert.ToInt32(TestCount.Text) <= 0)
             {
                 ErrorIsTooHigh.Text = $"테스트할 문항이 너무 많거나 읽어올수 없습니다. (최대 : {SelectedSentences.Count}개)";
                 TestCount.Text = "";

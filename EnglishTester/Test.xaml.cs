@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,9 +25,10 @@ namespace EnglishTester
             var randomIndex = random.Next(MainWindow.SelectedSentences.Count);
 
             var currentSentence = MainWindow.SelectedSentences[randomIndex];
-            var answer = new Regex(@"\[(.+)\]").Matches(currentSentence.Item1);
+            var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
 
             var answerBlind = "";
+            Debug.WriteLine(answer[0].Value);
             for (var i = 0; i < answer[0].Value.Length - 2; i++)
             {
                 answerBlind += "_";
