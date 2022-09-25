@@ -24,6 +24,7 @@ namespace EnglishTester
             var randomIndex = random.Next(MainWindow.SelectedSentences.Count);
 
             var currentSentence = MainWindow.SelectedSentences[randomIndex];
+            MainWindow.SelectedSentences.RemoveAt(randomIndex);
             var answer = new Regex(@"\[(.*?)\]").Matches(currentSentence.Item1);
             _a = answer[0].Value.Replace("[", "").Replace("]", "");
 
@@ -87,6 +88,7 @@ namespace EnglishTester
                 var randomIndex = random.Next(MainWindow.SelectedSentences.Count);
 
                 var currentSentence = MainWindow.SelectedSentences[randomIndex];
+                MainWindow.SelectedSentences.RemoveAt(randomIndex);
                 var answer = new Regex(@"\[(.+)\]").Matches(currentSentence.Item1);
                 _a = answer[0].Value.Replace("[", "").Replace("]", "");
 
